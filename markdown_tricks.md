@@ -1,5 +1,6 @@
 [](// "vim: colorcolumn=80 textwidth=80 foldmethod=marker list nrformats-=octal")
 [](// "Be sure to add space and nbsp to listchars.")
+[](// "To remove all comments, try: %g#\V[](//#d")
 
 [](// "            __  __            _       _                                ")
 [](// "           |  \/  | __ _ _ __| | ____| | _____      ___ __             ")
@@ -25,14 +26,20 @@
 
 [](// "Putting &#013; into a table doesn't make it tiny like you'd hope.")
 
+[](// "So I just discovered that if you copy text including a null character")
+[](// "(0x00) in the Windows clipboard, it'll refuse to paste past the null")
+[](// "character. Probably because that's used as the 'end of string' marker")
+[](// "in C.")
+
 [](// "So you can superscript code blocks by doing this:")
 [](// "^`code`  ")
 [](// "But it's useless for making ASCII art because there's too much space")
 [](// "between the lines. Being all superscript an' all.")
 
-[](// "So I just discovered that if you copy text including a null character")
-[](// "(0x00) in the Windows clipboard, it'll refuse to paste past the null")
-[](// "character, since that's used as the 'end of string' marker in C.")
+[](// "For inspiration, try reading the official docs:")
+[](// "http://daringfireball.net/projects/markdown/syntax")
+[](// "And the unofficial reddit markdown primer:")
+[](// "https://www.reddit.com/r/reddit.com/comments/6ewgt//c03nik6")
 
 - &nbsp;
     - &nbsp;
@@ -168,6 +175,10 @@
 
                                        
 
+[](// "TODO: Test with different and browsers.")
+[](// "Only looks good on 100% zoom. Looks best on Chrome.")
+[](// "Looks a bit worse on Edge, but oh well.")
+[](// "TODO: Not sure about Firefox yet.")
 [](// "#   #  ####  #     #      ## ")
 [](// "#   #  #     #     #     #  #")
 [](// "#####  ###   #     #     #  #")
@@ -176,10 +187,10 @@
 
 &nbsp;
 
-` `             ` `      ` `` `` `` `      ` `                  ` `                        ` `` `   
-` `             ` `      ` `                   ` `                  ` `                     ` `      ` `
-` `` `` `` `` `      ` `` `` `           ` `                  ` `                     ` `      ` `
-` `             ` `      ` `                   ` `                  ` `                     ` `      ` `
+` `             ` `      ` `` `` `` `      ` `                   ` `                        ` `` `   
+` `             ` `      ` `                   ` `                   ` `                     ` `      ` `
+` `` `` `` `` `      ` `` `` `          ` `                   ` `                     ` `      ` `
+` `             ` `      ` `                   ` `                   ` `                     ` `      ` `
 ` `             ` `      ` `` `` `` `      ` `` `` `` `      ` `` `` `` `           ` `` `   
 
 &nbsp;
