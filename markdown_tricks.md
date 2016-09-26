@@ -1,56 +1,3 @@
-[](// " vim: cc=80 textwidth=80 foldmethod=marker list nrformats-=octal nowrap")
-[](// "Be sure to add space and nbsp to listchars. By the way, The space")
-[](// "before 'vim:' has to be there or it won't register as a modeline.")
-[](// "Weird, right?")
-
-[](// "            __  __            _       _                                ")
-[](// "           |  \/  | __ _ _ __| | ____| | _____      ___ __             ")
-[](// "           | |\/| |/ _` | '__| |/ / _` |/ _ \ \ /\ / / '_ \            ")
-[](// "           | |  | | (_| | |  |   < (_| | (_) \ V  V /| | | |           ")
-[](// "           |_|  |_|\__,_|_|  |_|\_\__,_|\___/ \_/\_/ |_| |_|           ")
-[](// "                                                                       ")
-[](// "                  _____           _                                    ")
-[](// "                 |  ___|   _  ___| | _____ _ __ _   _                  ")
-[](// "                 | |_ | | | |/ __| |/ / _ \ '__| | | |                 ")
-[](// "                 |  _|| |_| | (__|   <  __/ |  | |_| |                 ")
-[](// "                 |_|   \__,_|\___|_|\_\___|_|   \__, |                 ")
-[](// "                                                |___/                  ")
-
-[](// "TODO: Put everything in the right order. A E S T H E T I C should")
-[](// "      definitely go at the very end. Start and end strong.")
-
-[](// "To remove all comments:")
-[](// ' :g#\v^\s*\[\]\(//\s+"[^"]*"\s*\)\s*$#d ')
-
-[](// "Headers don't work in superscript and '---' doesn't either.")
-[](// "What works with tables: bold, italics, links, &nbsp;, superscript.")
-[](// "What doesn't: '---'.")
-
-[](// "Unicode characters tested as HTML entities so far: 0-15")
-[](// "Unicode characters that break as HTML entities: 0-8, 11, 12, 14, 15")
-[](// "That show up as spaces: 9, 10")
-[](// "That show up as nothing: 13")
-
-[](// "Putting &#013; into a table doesn't make it tiny like you'd hope.")
-
-[](// "So I just discovered that if you copy text including a null character")
-[](// "(0x00) in the Windows clipboard, it'll refuse to paste past the null")
-[](// "character. Probably because that's used as the 'end of string' marker")
-[](// "in C.")
-
-[](// "You can superscript code blocks by doing this:")
-[](// "^`code`  ")
-[](// "But it's useless for making ASCII art because there's too much space")
-[](// "between the lines. Being all superscript an' all.")
-
-[](// "For inspiration, try reading the official docs:")
-[](// "http://daringfireball.net/projects/markdown/syntax")
-[](// "And the unofficial reddit markdown primer:")
-[](// "https://www.reddit.com/r/reddit.com/comments/6ewgt//c03nik6")
-
-[](// "Any more than 15 '>' characters and it craps out. Must have blank lines")
-[](// "after each quote line or it won't work properly.")
-
 >>>>>>>> ---
 
 >> ---
@@ -86,8 +33,12 @@
 >> ---
 
 >>>>>>>> ---
+
+&nbsp;
 
                                        
+
+&nbsp;
 
 - &nbsp;
     - &nbsp;
@@ -101,24 +52,11 @@
     - &nbsp;
 - &nbsp;
 
-[](// "The below thing \/ is a separator that creates a visual break between")
-[](// "the displays. It has a Unicode non-breaking space character (decimal")
-[](// "160) so that we can have a code block with all invisible characters.")
+&nbsp;
 
                                        
 
-[](// "white king    U+2654  &#9812;")
-[](// "white queen   U+2655  &#9813;")
-[](// "white rook    U+2656  &#9814;")
-[](// "white bishop  U+2657  &#9815;")
-[](// "white knight  U+2658  &#9816;")
-[](// "white pawn    U+2659  &#9817;")
-[](// "black king    U+265A  &#9818;")
-[](// "black queen   U+265B  &#9819;")
-[](// "black rook    U+265C  &#9820;")
-[](// "black bishop  U+265D  &#9821;")
-[](// "black knight  U+265E  &#9822;")
-[](// "black pawn    U+265F  &#9823;")
+&nbsp;
 
 &#9814;|&#9816;|&#9815;|&#9812;|&#9813;|&#9815;|&#9816;|&#9814;
 -|-|-|-|-|-|-|-
@@ -130,19 +68,11 @@
 &#9823;|&#9823;|&#9823;|&#9823;|&#9823;|&#9823;|&#9823;|&#9823;
 &#9820;|&#9822;|&#9821;|&#9818;|&#9819;|&#9821;|&#9822;|&#9820;
 
-                                       
-
-[](// "Max superscript level is 8.")
-
-[](// "This nbsp is to fix the spacing that's created by making fonts")
-[](// "smaller with superscript. That is, the text ends up with a lot of")
-[](// "whitespace on the bottom, but none on top. With this nbsp, the")
-[](// "whitespace should be roughly equal and look more symmetrical.")
 &nbsp;
 
+                                       
 
-[](// "In order of lightest to darkest and back again. Spaced with single")
-[](// "lines, not the double \n thing.")
+&nbsp;
 
 ^^^^^^^^[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
 ^^^^^^^^()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()  
@@ -156,24 +86,11 @@
 ^^^^^^^^()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()  
 ^^^^^^^^[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
 
+&nbsp;
+
                                        
 
 &nbsp;
-
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
-[](// "      _-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-     ")
-[](// "      '-_-'-_-'-_-'-_-'-_-'-_-'-_-'-_-'-     ")
 
 \_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;  
 &#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_-&#x203e;-\_  
@@ -194,16 +111,6 @@
 
                                        
 
-[](// "#   # ### #  # ### ### ## ")
-[](// "# # #  #  ## #  #  ##  # #")
-[](// "# # #  #  # ##  #  #   ## ")
-[](// " # #  ### #  #  #  ### # #")
-
-[](//  "##      ##  ######  ##    ##  ######  ######  ####  ")
-[](//  "##  ##  ##    ##    ####  ##    ##    ####    ##  ##")
-[](//  "##  ##  ##    ##    ##  ####    ##    ##      ####  ")
-[](//  "  ##  ##    ######  ##    ##    ##    ######  ##  ##")
-
 &nbsp;
 
 &#x2588;|&nbsp;  |&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&#x2588;|&#x2588;|&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&#x2588;|&#x2588;|&#x2588;|&nbsp;  |&#x2588;|&#x2588;|&#x2588;|&nbsp;  |&#x2588;|&#x2588;|&nbsp;  
@@ -211,20 +118,6 @@
 &#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&#x2588;
 &#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&#x2588;|&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&nbsp;  |&#x2588;|&#x2588;|&nbsp;  
 &nbsp;  |&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&#x2588;|&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&nbsp;  |&nbsp;  |&#x2588;|&#x2588;|&#x2588;|&nbsp;  |&#x2588;|&nbsp;  |&#x2588;
-
-[](// "Only looks good on 100% zoom.")
-[](// "Looks fine on Chrome and Firefox.")
-[](// "Looks a bit worse on Edge. Of course.")
-
-[](// "#   # #  # ###  #  #  # ###")
-[](// "## ## #  #  #  # # ## #  # ")
-[](// "# # # #  #  #  ### # ##  # ")
-[](// "#   #  ##   #  # # #  #  # ")
-
-[](// "##      ##  ##    ##  ######    ##    ##    ##  ######")
-[](// "####  ####  ##    ##    ##    ##  ##  ####  ##    ##  ")
-[](// "##  ##  ##  ##    ##    ##    ######  ##  ####    ##  ")
-[](// "##      ##    ####      ##    ##  ##  ##    ##    ##  ")
 
 &nbsp;
 
