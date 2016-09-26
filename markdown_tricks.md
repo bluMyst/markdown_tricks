@@ -1,5 +1,7 @@
-[](// "vim: colorcolumn=80 textwidth=80 foldmethod=marker list nrformats-=octal")
-[](// "Be sure to add space and nbsp to listchars.")
+[](// " vim: cc=80 textwidth=80 foldmethod=marker list nrformats-=octal nowrap")
+[](// "Be sure to add space and nbsp to listchars. By the way, The space")
+[](// "before 'vim:' has to be there or it won't register as a modeline.")
+[](// "Weird, right?")
 [](// "To remove all comments, try: %g#\V[](//#d")
 
 [](// "            __  __            _       _                                ")
