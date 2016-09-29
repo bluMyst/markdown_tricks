@@ -1,5 +1,18 @@
 &nbsp;
 
+  |   |  
+- | - | -
+  | This is a list of strange things you can do with Markdown. It was designed for reddit in RES's night mode, so other Markdown implementations may produce wildly different results for certain hackish tricks. Especially the ones that rely on font sizes. For the most part, though, these tricks should be universal. |  
+  |   |  
+  | Be sure to look at the source to see how it all works. I recommend using a text editor that shows trailing whitespace and nbsp characters. |  
+  |   |  
+
+&nbsp;
+
+                                       
+
+&nbsp;
+
 >>>>>>>> ---
 
 >> ---
