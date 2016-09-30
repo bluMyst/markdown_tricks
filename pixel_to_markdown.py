@@ -49,16 +49,16 @@ def color_to_str(color):
 
     return '#' + ''.join(map(to_hex_byte, color))
 
-def image_to_markdown(image, dark_color, light_color):
+def image_to_markdown(image, filled_color, blank_color):
     # This is the exact pixel value we're at right now.
     markdown_x = 0
 
     markdown = ''
 
     def is_pixel_dark(color):
-        if color == dark_color:
+        if color == filled_color:
             return True
-        elif color == light_color:
+        elif color == blank_color:
             return False
         else:
             raise ValueError("Image has invalid color: {color}".format(
@@ -104,6 +104,40 @@ def image_to_markdown(image, dark_color, light_color):
     return markdown
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='turn simple black-and-white images'
+                    ' into Markdown documents')
+
+    parser.add_argument('-d', '--debug', action='store_true',
+        help='print debug information')
+
+    parser.add_argument('-i', '--invert', action='store_true',
+        help='invert the image, so that the lighter pixels will be filled in'
+             ' and the darker pixels will be left blank')
+
+    parser.add_argument('-p', '--pixel-char', dest='pixel_char', default='#',
+        help='the character used to fill in pixels')
+
+    parser.add_argument('image', type=argparse.FileType('r'),
+        help='the image file to use')
+
+    parser.add_argument('outfile', nargs='?', default='image.md',
+        type=argparse.FileType('w'), help='the file to output markdown to')
+
+    args       = parser.parse_args()
+    DEBUG      = args.debug
+    PIXEL_CHAR = args.pixel_char
+
+    if DEBUG:
+        from pprint import pprint
+        pprint(args)
+
+    if len(args.pixel_char) != 1:
+        print('Invalid pixel_char:', args.pixel_char)
+        print('Can only be one character long.')
+        exit(1)
+
     image = Image.open(sys.argv[1])
     print("Opened image file:", sys.argv[1], end=' ')
     print(image.format, image.mode, image.size)
@@ -115,15 +149,18 @@ if __name__ == '__main__':
         exit(1)
 
     colors = [color for occurances, color in colors]
-    darkest_color, lightest_color = sorted(colors, key=sum)
+    filled_color, blank_color = sorted(colors, key=sum, reverse=args.invert)
 
-    print("Colors automatically detected.")
-    print("Color for 'black': {b}  Color for 'white': {w}".format(
-        b=color_to_str(darkest_color),
-        w=color_to_str(lightest_color)))
+    print("Color for 'filled': {f}  Color for 'blank': {b}".format(
+        f=color_to_str(filled_color),
+        b=color_to_str(blank_color)))
 
-    if ahto_lib.yes_no(False, "Invert?"):
-        darkest_color, lightest_color = lightest_color, darkest_color
+    print('filled looks kinda like this: ['
+        + str(PIXEL_CHAR * PIXEL_NUM_CHARS) + ']')
+    print('blank is... blank')
+
+    if not ahto_lib.yes_no(True, "Does that look correct?"):
+        exit(1)
 
     print()
 
@@ -135,5 +172,5 @@ if __name__ == '__main__':
     print('Writing to:', markdown_filename)
 
     with open(markdown_filename, 'w') as mdfile:
-        markdown = image_to_markdown(image, darkest_color, lightest_color)
+        markdown = image_to_markdown(image, filled_color, blank_color)
         mdfile.write(markdown.encode('utf8'))
