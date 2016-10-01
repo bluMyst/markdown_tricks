@@ -6,8 +6,6 @@ import sys
 import operator
 import ahto_lib
 
-# TODO: Command-line flags and options.
-
 # image.getcolors image.getpixel
 # getpixel returns (R, G, B)
 # image.width image.height
@@ -44,10 +42,11 @@ def debug(*args, **kwargs):
         return None
 
 def color_to_str(color):
-    def to_hex_byte(n):
-        return hex(n)[2:].zfill(2)
+    return '#{:0>2X}{:0>2X}{:0>2X}'.format(*color)
 
-    return '#' + ''.join(map(to_hex_byte, color))
+class ImageMarkdownConverter(object):
+    def __init__(self, image, invert):
+        ''' If invert is True, the filled-in pixels will be the lighter ones. '''
 
 def image_to_markdown(image, filled_color, blank_color):
     # This is the exact pixel value we're at right now.
