@@ -64,7 +64,7 @@ class ImageMarkdownConverter(object):
             for pixel in self.image.getdata():
                 assert pixel in [self.filled_color, self.blank_color]
 
-            print (" done.")
+            print(" done.")
 
     def _map_over_image(self, f):
         ''' function f should take args in the form of f(x, y, pixel_color) '''
