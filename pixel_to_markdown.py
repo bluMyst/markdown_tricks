@@ -7,6 +7,15 @@ import operator
 import ahto_lib
 import itertools
 
+# Some terminology:
+# The following is called a monospace block:
+# `##`
+# This particular monospace block has a width of 2. Note that this isn't the same thing as its
+# width in actual pixels.
+# A monospace pixel can be either filled (monospace block) or unfilled (NBSP's).
+# A monospace pixel is different from a normal pixel. A monospace pixel is an imaginary grid of pixels
+# that are each one monospace block long.
+
 # image.getcolors image.getpixel
 # getpixel returns (R, G, B)
 # image.width image.height
@@ -23,19 +32,6 @@ MONOSPACE_CONTAINER_WIDTH = 7+7
 
 NBSP = '\u00A0'
 
-# Character to use inside of the markdown 'pixels'. On reddit night mode, NBSP
-# looks good because the monospace boxes themselves are a noticably different
-# color from the background. For day mode, though, try '#' or '%'. Be careful
-# with unicode characters because the spacing tends to be sliiiightly off, even
-# in a monospace font.
-PIXEL_CHAR = '#'
-
-# Number of characters per pixel. On reddit, 2 looks 'streteched out', but the
-# pixels are less offcenter.
-PIXEL_NUM_CHARS = 2
-
-pixel_width = MONOSPACE_CONTAINER_WIDTH + MONOSPACE_CHAR_WIDTH * PIXEL_NUM_CHARS
-
 def debug(*args, **kwargs):
     if DEBUG:
         return print(*args, **kwargs)
@@ -47,8 +43,12 @@ def color_to_str(color):
     return '#{:0>2X}{:0>2X}{:0>2X}'.format(*color)
 
 class ImageMarkdownConverter(object):
-    def __init__(self, image, invert=False):
+    def __init__(self, image, invert=False, block_char='#', block_width=2):
         'If invert is True, the filled-in pixels will be the lighter ones.'
+        self.image       = image
+        self.block_char  = block_char
+        self.block_width = block_width
+
         colors = [color for occurances, color in image.getcolors()]
 
         if len(colors) != 2:
@@ -66,6 +66,9 @@ class ImageMarkdownConverter(object):
 
             print(" done.")
 
+    def get_monospace_block_width(self):
+        return MONOSPACE_CONTAINER_WIDTH + MONOSPACE_CHAR_WIDTH * self.block_width
+
     def _map_over_image(self, f):
         ''' function f should take args in the form of f(x, y, pixel_color) '''
 
@@ -73,17 +76,15 @@ class ImageMarkdownConverter(object):
             for x in range(self.image.height):
                 f(x, y, self.image.getpixel((x, y)))
 
-    def ascii_art(self, pixel_width=2, filled_char='#', blank_char=' '):
+    def ascii_art(self, block_width=2, filled_char='#', blank_char=' '):
         ''' Converts the image to ASCII art and returns it as a string. '''
-        raise NotImplemented() # TODO: Finish
-
         s = ''
 
-        for y in range(self.image.width):
-            for x in range(self.image.height):
+        for y in range(self.image.height):
+            for x in range(self.image.width):
                 filled = self.image.getpixel((x, y)) == self.filled_color
                 pixel = filled_char if filled else blank_char
-                s += pixel * pixel_width
+                s += pixel * block_width
 
             s += '\n'
 
@@ -100,10 +101,10 @@ class ImageMarkdownConverter(object):
                 dark = self.image.getpixel((x, y)) == self.filled_color
 
                 if dark:
-                    markdown   += '`' + PIXEL_CHAR * PIXEL_NUM_CHARS + '`'
-                    markdown_x += pixel_width
+                    markdown   += '`' + self.block_char * self.block_width + '`'
+                    markdown_x += self.get_monospace_block_width()
                 else:
-                    goal_x = pixel_width * (x+1)
+                    goal_x = self.get_monospace_block_width() * (x+1)
 
                     spaces_to_add = int(round(
                         (goal_x - markdown_x) / SPACE_CHAR_WIDTH))
@@ -140,48 +141,67 @@ if __name__ == '__main__':
         help='print debug information and do extra data-checking')
 
     parser.add_argument('-i', '--invert', action='store_true',
-        help='invert the image, so that the lighter pixels will be filled in'
-             ' and the darker pixels will be left blank')
+        help='Invert the image, so that the lighter pixels will be filled in'
+             ' and the darker pixels will be left blank.')
 
-    parser.add_argument('-p', '--pixel-char', dest='pixel_char', default='#',
-        help='the character used to fill in pixels')
+    # The percent sign is treated as a special character in the help, so we escape it with a second
+    # percent sign.
+    parser.add_argument('-b', '--block-char', metavar='CHR', dest='block_char', default='#',
+        #help='the character used to fill in pixels')
+        help='''
+            Character to use inside of the markdown 'pixels'. On reddit night mode, NBSP
+            looks good because the monospace boxes themselves are a noticably different
+            color from the background. For day mode, though, try '#' or '%%'. Be careful
+            with unicode characters because the spacing tends to be sliiiightly off, even
+            in a monospace font.
+        ''')
 
-    parser.add_argument('image', type=argparse.FileType('r'),
-        help='the image file to use')
+    # Number of characters per pixel. On reddit, 2 looks 'streteched out', but the
+    # pixels are in a perfect grid.
+    parser.add_argument('-w', '--block-width', metavar='INT', dest='block_width', default=2, type=int,
+        #help='the number of characters per pixel (be careful with this one)')
+        help='''
+            Number of characters per 'pixel'. On reddit, 2 looks streteched out, but the
+            pixels are in a perfect grid. 1 has more square-looking pixels, but they're slightly wonky.
+            3 and above are a horrible idea.
+        ''')
+
+    #parser.add_argument('image', type=argparse.FileType('r'),
+    #parser.add_argument('image', type=(lambda filename: open(filename, 'r')),
+    parser.add_argument('image', help='the image file to use')
 
     parser.add_argument('outfile', nargs='?', default='image.md',
-        type=argparse.FileType('w'), help='the file to output markdown to'
+        type=argparse.FileType('w'), help='The file to output markdown to.'
                                           ' (default = image.md)')
 
-    args       = parser.parse_args()
-    DEBUG      = args.debug
-    PIXEL_CHAR = args.pixel_char
+    args  = parser.parse_args()
+    DEBUG = args.debug
 
     if DEBUG:
         from pprint import pprint
         pprint(args)
 
-    if len(args.pixel_char) != 1:
+    if len(args.block_char) != 1:
         print('Invalid pixel_char:', args.pixel_char)
         print('Can only be one character long.')
         exit(1)
 
     image = Image.open(args.image)
     print(image.format, image.mode, image.size)
-    converter = ImageMarkdownConverter(image, args.invert)
+    converter = ImageMarkdownConverter(image, args.invert, args.block_char, args.block_width)
 
     filled, blank = converter.filled_color, converter.blank_color
     print("Color for 'filled': {f}  Color for 'blank': {b}".format(
         f=color_to_str(filled),
         b=color_to_str(blank)))
 
-    print(converter.ascii_art(filled_char=PIXEL_CHAR))
+    print(converter.ascii_art(filled_char=args.block_char))
 
     if not ahto_lib.yes_no(True, "Does that look correct?"):
         exit(1)
 
     print()
 
-    with open(markdown_filename, 'w') as mdfile:
-        markdown = image_to_markdown(image, filled_color, blank_color)
-        mdfile.write(markdown.encode('utf8'))
+    markdown = converter.image_to_markdown()
+    #args.outfile.write(markdown.encode('utf8'))
+    args.outfile.write(markdown)
