@@ -1,5 +1,5 @@
 # Pillow is supposed to be a good imaging library. It's a fork of PIL.
-
+from __future__ import print_function, division
 from PIL import Image
 import math
 import sys
@@ -21,7 +21,7 @@ MONOSPACE_CHAR_WIDTH = 8
 # 7 at the beginning and 7 at the end.
 MONOSPACE_CONTAINER_WIDTH = 7+7
 
-NBSP = '\u00A0'
+NBSP = u'\u00A0'
 
 # Character to use inside of the markdown 'pixels'. On reddit night mode, NBSP
 # looks good because the monospace boxes themselves are a noticably different
@@ -69,8 +69,8 @@ class ImageMarkdownConverter(object):
     def _map_over_image(self, f):
         ''' function f should take args in the form of f(x, y, pixel_color) '''
 
-        for y in range(self.iamge.width):
-            for x in range(self.image.height):
+        for y in xrange(self.iamge.width):
+            for x in xrange(self.image.height):
                 f(x, y, self.image.getpixel((x, y)))
 
     def ascii_art(self, pixel_width=2, filled_char='#', blank_char=' '):
@@ -79,8 +79,8 @@ class ImageMarkdownConverter(object):
 
         s = ''
 
-        for y in range(self.image.width):
-            for x in range(self.image.height):
+        for y in xrange(self.image.width):
+            for x in xrange(self.image.height):
                 filled = self.image.getpixel((x, y)) == self.filled_color
                 pixel = filled_char if filled else blank_char
                 s += pixel * pixel_width
@@ -95,8 +95,8 @@ class ImageMarkdownConverter(object):
 
         markdown = ''
 
-        for y in range(image.height):
-            for x in range(image.width):
+        for y in xrange(image.height):
+            for x in xrange(image.width):
                 dark = self.image.getpixel((x, y)) == self.filled_color
 
                 if dark:
